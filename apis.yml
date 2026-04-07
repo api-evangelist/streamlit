@@ -8,8 +8,7 @@ type: Index
 position: Consumer
 access: 3rd-Party
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-tags:
-  - API
+tags: []
 created: '2025-02-12'
 modified: '2026-03-16'
 url: >-
@@ -24,8 +23,7 @@ apis:
       performance. Each section includes methods associated with the activity type,
       including examples.
     humanURL: ' https://docs.streamlit.io/develop/api-reference'
-    tags:
-      - API
+    tags: []
     properties:
       - type: Documentation
         url: ' https://docs.streamlit.io/develop/api-reference'
