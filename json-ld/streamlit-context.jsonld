@@ -1,0 +1,64 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "streamlit": "https://streamlit.io/vocab/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "doap": "http://usefulinc.com/ns/doap#",
+
+    "App": {
+      "@id": "streamlit:App",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "status": {
+          "@id": "streamlit:deploymentStatus",
+          "@type": "xsd:string"
+        },
+        "repo": {
+          "@id": "doap:repository",
+          "@type": "xsd:string"
+        },
+        "branch": {
+          "@id": "doap:branch",
+          "@type": "xsd:string"
+        },
+        "mainFile": {
+          "@id": "streamlit:mainFile",
+          "@type": "xsd:string"
+        },
+        "owner": {
+          "@id": "schema:author",
+          "@type": "xsd:string"
+        },
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Workspace": {
+      "@id": "streamlit:Workspace",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "owner": "schema:author",
+        "plan": "schema:offers",
+        "appCount": {
+          "@id": "streamlit:appCount",
+          "@type": "xsd:integer"
+        }
+      }
+    }
+  }
+}

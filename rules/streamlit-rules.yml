@@ -1,0 +1,95 @@
+extends:
+  - spectral:oas
+
+rules:
+  streamlit-operation-ids-camel-case:
+    description: >-
+      Streamlit Cloud API operationIds use camelCase (e.g., listApps,
+      deployApp, getApp, restartApp).
+    message: "OperationId '{{value}}' must use camelCase format"
+    severity: warn
+    given: "$.paths[*][*].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  streamlit-tags-title-case:
+    description: >-
+      All OpenAPI tags must use Title Case (e.g., 'Apps', 'Secrets', 'Workspaces').
+    message: "Tag '{{value}}' must use Title Case"
+    severity: warn
+    given: "$.tags[*].name"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][a-zA-Z]*(\\s[A-Z][a-zA-Z]*)*$"
+
+  streamlit-bearer-auth:
+    description: >-
+      All Streamlit Cloud API endpoints require Bearer token authentication.
+    message: "API must use streamlitBearerAuth security scheme"
+    severity: warn
+    given: "$.components.securitySchemes"
+    then:
+      function: truthy
+      field: "streamlitBearerAuth"
+
+  streamlit-app-id-path-param:
+    description: >-
+      App-specific endpoints use appId as the path parameter name for
+      the application identifier.
+    message: "App path parameter must be named 'appId'"
+    severity: warn
+    given: "$.paths['/apps/{appId}'][*].parameters[*]"
+    then:
+      field: "name"
+      function: enumeration
+      functionOptions:
+        values:
+          - appId
+
+  streamlit-secrets-never-returned:
+    description: >-
+      The Streamlit Cloud API never returns secret values, only key names.
+      Security review: verify no secret values appear in response schemas.
+    message: "Secrets response must not include actual secret values — only key names"
+    severity: error
+    given: "$.paths['/apps/{appId}/secrets'][get].responses['200'].content['application/json'].schema"
+    then:
+      function: truthy
+
+  streamlit-delete-returns-204:
+    description: >-
+      DELETE operations in Streamlit Cloud API return 204 No Content
+      on successful deletion.
+    message: "DELETE operation should return 204 on success"
+    severity: info
+    given: "$.paths[*][delete].responses"
+    then:
+      function: truthy
+      field: "204"
+
+  streamlit-operation-summaries-present:
+    description: >-
+      All operations must have a summary.
+    message: "Operation must have a summary"
+    severity: error
+    given: "$.paths[*][get,post,put,delete,patch]"
+    then:
+      function: truthy
+      field: "summary"
+
+  streamlit-pagination-consistent:
+    description: >-
+      List endpoints should support consistent pagination parameters
+      (page and per_page).
+    message: "List endpoints should document page and per_page parameters"
+    severity: info
+    given: "$.paths['/apps'][get].parameters[*].name"
+    then:
+      function: enumeration
+      functionOptions:
+        values:
+          - page
+          - per_page

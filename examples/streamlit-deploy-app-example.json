@@ -1,0 +1,31 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.streamlit.io/v1/apps",
+    "headers": {
+      "Authorization": "Bearer sl-token-xxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "repo": "johndoe/my-data-app",
+      "branch": "main",
+      "mainFile": "app.py",
+      "appName": "My Data Application"
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "id": "app-ghi789",
+      "name": "My Data Application",
+      "url": "https://johndoe-my-data-app-main.streamlit.app",
+      "status": "building",
+      "repo": "johndoe/my-data-app",
+      "branch": "main",
+      "mainFile": "app.py",
+      "owner": "johndoe",
+      "createdAt": "2026-05-02T10:00:00Z",
+      "updatedAt": "2026-05-02T10:00:00Z"
+    }
+  }
+}

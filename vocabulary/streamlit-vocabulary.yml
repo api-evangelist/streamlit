@@ -1,0 +1,141 @@
+vocabulary:
+  name: Streamlit Vocabulary
+  description: >-
+    Domain vocabulary for Streamlit, the open-source Python framework for
+    building data and machine learning web applications.
+  version: '1.0.0'
+  created: '2026-05-02'
+  modified: '2026-05-02'
+
+terms:
+  - term: Widget
+    definition: >-
+      An interactive UI element in a Streamlit app that collects user input.
+      Examples include st.button, st.slider, st.selectbox, st.text_input,
+      st.checkbox, st.multiselect, and st.date_input. Widgets trigger
+      re-runs of the app script when their value changes.
+    synonyms:
+      - Input Widget
+      - UI Component
+
+  - term: st.write
+    definition: >-
+      Streamlit's universal display function that renders almost anything —
+      strings, numbers, DataFrames, dicts, lists, matplotlib figures,
+      Altair charts, and Plotly figures. The magic command to output anything
+      to the app.
+
+  - term: Re-run
+    definition: >-
+      Streamlit's execution model where the entire script is re-executed from
+      top to bottom whenever a user interacts with a widget or the data source
+      changes. This reactive model makes apps interactive without explicit
+      event handlers.
+
+  - term: st.session_state
+    definition: >-
+      Streamlit's mechanism for preserving state across re-runs within a
+      user session. Session state allows storing values that persist between
+      script executions, enabling stateful interactions like form submissions
+      and multi-page flows.
+
+  - term: st.cache_data
+    definition: >-
+      A decorator that caches the return value of a function based on its
+      inputs. Used to cache expensive data loading and processing operations
+      (e.g., CSV loading, API calls, database queries). Replaces the legacy
+      @st.cache decorator.
+
+  - term: st.cache_resource
+    definition: >-
+      A decorator that caches global resources like database connections,
+      ML model objects, and API clients across all users and sessions.
+      Resources are shared and never serialized/deserialized.
+
+  - term: st.secrets
+    definition: >-
+      Streamlit's built-in secrets management system. Secrets are stored in
+      a .streamlit/secrets.toml file locally or in the Streamlit Community
+      Cloud app settings. Accessed as a dictionary-like object in code.
+    synonyms:
+      - Secrets Management
+
+  - term: Community Cloud
+    definition: >-
+      Streamlit's free hosting platform for deploying Streamlit apps directly
+      from GitHub repositories. Apps are built automatically when code is
+      pushed to the connected branch. Supports custom subdomains and secret
+      management.
+    synonyms:
+      - Streamlit Cloud
+      - Streamlit Share
+
+  - term: st.connection
+    definition: >-
+      Streamlit's unified interface for connecting to data sources. Supports
+      built-in connections for SQL databases (st.connection("sql")),
+      Snowflake (st.connection("snowflake")), and Google Sheets, with the
+      option for custom connection classes.
+
+  - term: Fragment
+    definition: >-
+      A portion of a Streamlit app (decorated with @st.fragment) that can
+      re-run independently without triggering a full app re-run. Useful for
+      isolating interactive components to improve performance.
+
+  - term: Multi-page App
+    definition: >-
+      A Streamlit application with multiple pages, implemented either through
+      the pages/ directory convention (each .py file becomes a page) or
+      programmatically with st.Page and st.navigation.
+
+  - term: st.data_editor
+    definition: >-
+      An interactive data editing widget that renders a DataFrame as an
+      editable spreadsheet-like table. Users can add, delete, and modify rows
+      and columns directly in the app.
+
+  - term: App Sleep
+    definition: >-
+      A Community Cloud feature where inactive apps are automatically paused
+      to save resources. Apps wake up automatically when a user visits them.
+      Free tier apps sleep after 7 days of inactivity.
+
+  - term: st.columns
+    definition: >-
+      A layout primitive that creates multiple side-by-side columns in the
+      Streamlit app. Content placed in different column objects renders in
+      parallel columns.
+
+  - term: st.expander
+    definition: >-
+      A layout component that creates a collapsible section, allowing users
+      to show or hide content. Useful for optional details, code examples,
+      or advanced settings.
+
+  - term: Altair
+    definition: >-
+      A declarative statistical visualization library for Python, natively
+      supported by Streamlit via st.altair_chart. Streamlit also supports
+      Plotly, Matplotlib, Bokeh, and Vega-Lite charts.
+
+  - term: st.form
+    definition: >-
+      A container that groups input widgets and delays script re-runs until
+      the user clicks a submit button. Forms prevent re-runs on every widget
+      interaction, improving performance for complex inputs.
+
+  - term: Component
+    definition: >-
+      A custom Streamlit element built using TypeScript/React that extends
+      Streamlit's UI beyond the built-in widgets. Components communicate
+      bidirectionally with the Python script using the components API.
+    synonyms:
+      - Custom Component
+
+  - term: TOML
+    definition: >-
+      The configuration file format used by Streamlit for both app
+      configuration (.streamlit/config.toml) and secrets
+      (.streamlit/secrets.toml). TOML is also the format for providing
+      secrets via the Community Cloud API.

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://streamlit.io/schemas/app.json",
+  "title": "Streamlit Community Cloud App",
+  "description": "Represents a Streamlit application deployed on Community Cloud, connected to a GitHub repository.",
+  "type": "object",
+  "required": ["id", "repo", "branch", "mainFile"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The unique identifier of the deployed app"
+    },
+    "name": {
+      "type": "string",
+      "description": "The display name of the app"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "The public URL where the app is accessible"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["running", "sleeping", "error", "building", "deploying"],
+      "description": "The current deployment status of the app"
+    },
+    "repo": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+$",
+      "description": "GitHub repository in org/repo format"
+    },
+    "branch": {
+      "type": "string",
+      "description": "The GitHub branch the app is deployed from"
+    },
+    "mainFile": {
+      "type": "string",
+      "description": "Path to the main Python file within the repository (e.g., app.py)",
+      "pattern": ".*\\.py$"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the app was first deployed"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the app was last updated or restarted"
+    },
+    "owner": {
+      "type": "string",
+      "description": "GitHub username or organization that owns the repository"
+    }
+  }
+}

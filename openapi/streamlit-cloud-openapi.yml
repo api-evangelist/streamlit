@@ -1,0 +1,393 @@
+openapi: 3.1.0
+info:
+  title: Streamlit Community Cloud API
+  description: >-
+    The Streamlit Community Cloud API provides programmatic access to manage
+    Streamlit applications hosted on Community Cloud. Developers can use this
+    API to deploy apps from GitHub repositories, manage app secrets, view
+    deployment logs, restart apps, and manage workspace settings. Authentication
+    uses Streamlit-issued API tokens.
+  version: '1.0.0'
+  contact:
+    name: Streamlit Support
+    url: https://discuss.streamlit.io
+  termsOfService: https://streamlit.io/terms-of-use
+externalDocs:
+  description: Streamlit Community Cloud Documentation
+  url: https://docs.streamlit.io/deploy/streamlit-community-cloud
+servers:
+  - url: https://api.streamlit.io/v1
+    description: Streamlit Community Cloud API
+tags:
+  - name: Apps
+    description: >-
+      Manage Streamlit applications deployed on Community Cloud.
+      Deploy, list, restart, and delete apps connected to GitHub repositories.
+  - name: Secrets
+    description: >-
+      Manage secrets for Streamlit applications. Secrets are environment
+      variables securely injected into the application at runtime via
+      st.secrets.
+  - name: Workspaces
+    description: >-
+      Manage Streamlit Community Cloud workspaces and their settings.
+security:
+  - streamlitBearerAuth: []
+paths:
+  /apps:
+    get:
+      operationId: listApps
+      summary: List Apps
+      description: >-
+        Returns a list of all Streamlit applications deployed in the
+        authenticated workspace.
+      tags:
+        - Apps
+      parameters:
+        - name: page
+          in: query
+          description: Page number for pagination
+          schema:
+            type: integer
+            default: 1
+        - name: per_page
+          in: query
+          description: Number of apps per page
+          schema:
+            type: integer
+            default: 25
+      responses:
+        '200':
+          description: A list of Streamlit apps
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  apps:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/App'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: deployApp
+      summary: Deploy App
+      description: >-
+        Deploys a new Streamlit application from a GitHub repository. The
+        repository must be accessible to the authenticated workspace. The app
+        will be built and deployed from the specified branch and file path.
+      tags:
+        - Apps
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppDeployRequest'
+      responses:
+        '201':
+          description: App deployment initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/App'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /apps/{appId}:
+    get:
+      operationId: getApp
+      summary: Get App
+      description: >-
+        Returns the details of a specific Streamlit application including
+        its deployment status, GitHub connection, and URL.
+      tags:
+        - Apps
+      parameters:
+        - $ref: '#/components/parameters/AppId'
+      responses:
+        '200':
+          description: The app details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/App'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteApp
+      summary: Delete App
+      description: >-
+        Deletes a Streamlit application from Community Cloud. This action
+        is irreversible and removes the deployment but does not affect the
+        GitHub repository.
+      tags:
+        - Apps
+      parameters:
+        - $ref: '#/components/parameters/AppId'
+      responses:
+        '204':
+          description: App deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /apps/{appId}/restart:
+    post:
+      operationId: restartApp
+      summary: Restart App
+      description: >-
+        Restarts a deployed Streamlit application. Useful for applying
+        new secrets or recovering from an error state.
+      tags:
+        - Apps
+      parameters:
+        - $ref: '#/components/parameters/AppId'
+      responses:
+        '200':
+          description: App restart initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/App'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /apps/{appId}/secrets:
+    get:
+      operationId: getAppSecrets
+      summary: Get App Secrets
+      description: >-
+        Returns the secret keys (not values) configured for a Streamlit
+        application. Secret values are never returned via the API for security.
+      tags:
+        - Secrets
+      parameters:
+        - $ref: '#/components/parameters/AppId'
+      responses:
+        '200':
+          description: The app secret keys
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  secrets:
+                    type: array
+                    items:
+                      type: string
+                    description: List of secret key names (values not included)
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateAppSecrets
+      summary: Update App Secrets
+      description: >-
+        Replaces all secrets for a Streamlit application. Secrets are provided
+        as a TOML-formatted string and are made available in the app via
+        st.secrets. Updating secrets automatically restarts the application.
+      tags:
+        - Secrets
+      parameters:
+        - $ref: '#/components/parameters/AppId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SecretsUpdateRequest'
+      responses:
+        '200':
+          description: Secrets updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /workspaces:
+    get:
+      operationId: listWorkspaces
+      summary: List Workspaces
+      description: >-
+        Returns a list of Streamlit Community Cloud workspaces accessible
+        to the authenticated user.
+      tags:
+        - Workspaces
+      responses:
+        '200':
+          description: A list of workspaces
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  workspaces:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Workspace'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    streamlitBearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Bearer token issued from the Streamlit Community Cloud account settings.
+        Include as Authorization: Bearer {token}.
+  parameters:
+    AppId:
+      name: appId
+      in: path
+      required: true
+      description: The unique identifier of the Streamlit app
+      schema:
+        type: string
+  schemas:
+    App:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the app
+        name:
+          type: string
+          description: The display name of the app
+        url:
+          type: string
+          format: uri
+          description: The public URL of the deployed app
+        status:
+          type: string
+          enum:
+            - running
+            - sleeping
+            - error
+            - building
+            - deploying
+          description: The current status of the app
+        repo:
+          type: string
+          description: The GitHub repository (org/repo format)
+        branch:
+          type: string
+          description: The GitHub branch to deploy from
+        mainFile:
+          type: string
+          description: The path to the main app file (e.g., app.py, streamlit_app.py)
+        createdAt:
+          type: string
+          format: date-time
+          description: When the app was first deployed
+        updatedAt:
+          type: string
+          format: date-time
+          description: When the app was last updated or restarted
+        owner:
+          type: string
+          description: The GitHub username or org that owns the repository
+    AppDeployRequest:
+      type: object
+      required:
+        - repo
+        - branch
+        - mainFile
+      properties:
+        repo:
+          type: string
+          description: The GitHub repository to deploy from (org/repo format)
+        branch:
+          type: string
+          description: The branch to deploy from
+        mainFile:
+          type: string
+          description: The path to the main Python file (e.g., app.py)
+        appName:
+          type: string
+          description: Optional custom name for the app
+    SecretsUpdateRequest:
+      type: object
+      required:
+        - secrets
+      properties:
+        secrets:
+          type: string
+          description: >-
+            Secrets in TOML format. Example: api_key = "your_key_here"
+            or nested: [database]\nhost = "localhost"\npassword = "secret"
+    Workspace:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the workspace
+        name:
+          type: string
+          description: The display name of the workspace
+        owner:
+          type: string
+          description: The GitHub username or organization
+        plan:
+          type: string
+          enum:
+            - free
+            - team
+            - enterprise
+          description: The workspace's subscription plan
+        appCount:
+          type: integer
+          description: The number of apps in the workspace
+    Pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+        perPage:
+          type: integer
+        total:
+          type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: The error code
+        message:
+          type: string
+          description: A human-readable error message
+  responses:
+    BadRequest:
+      description: Bad request — invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — invalid or missing API token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found — the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

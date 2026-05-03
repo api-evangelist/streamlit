@@ -1,0 +1,20 @@
+{
+  "name": "StreamlitApp",
+  "description": "A Streamlit application deployed on Community Cloud, linked to a GitHub repository.",
+  "fields": [
+    {"name": "id", "type": "string", "required": true, "description": "Unique app identifier"},
+    {"name": "name", "type": "string", "required": false, "description": "Display name of the app"},
+    {"name": "url", "type": "string", "format": "uri", "required": false, "description": "Public URL of the deployed app"},
+    {"name": "status", "type": "string", "required": false, "enum": ["running", "sleeping", "error", "building", "deploying"], "description": "Current deployment status"},
+    {"name": "repo", "type": "string", "required": true, "description": "GitHub repository (org/repo format)"},
+    {"name": "branch", "type": "string", "required": true, "description": "GitHub branch deployed from"},
+    {"name": "mainFile", "type": "string", "required": true, "description": "Path to main Python file (e.g., app.py)"},
+    {"name": "owner", "type": "string", "required": false, "description": "GitHub owner of the repository"},
+    {"name": "createdAt", "type": "string", "format": "date-time", "required": false, "description": "Deployment creation timestamp"},
+    {"name": "updatedAt", "type": "string", "format": "date-time", "required": false, "description": "Last update timestamp"}
+  ],
+  "relationships": [
+    {"name": "secrets", "type": "array", "target": "Secret", "description": "Secret key names available in st.secrets"},
+    {"name": "workspace", "type": "object", "target": "Workspace", "description": "Workspace the app belongs to"}
+  ]
+}

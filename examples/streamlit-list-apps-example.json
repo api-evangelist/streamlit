@@ -1,0 +1,45 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.streamlit.io/v1/apps",
+    "headers": {
+      "Authorization": "Bearer sl-token-xxxxx"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "apps": [
+        {
+          "id": "app-abc123",
+          "name": "Sales Dashboard",
+          "url": "https://johndoe-sales-dashboard-main.streamlit.app",
+          "status": "running",
+          "repo": "johndoe/sales-dashboard",
+          "branch": "main",
+          "mainFile": "app.py",
+          "owner": "johndoe",
+          "createdAt": "2026-01-15T10:00:00Z",
+          "updatedAt": "2026-05-01T08:00:00Z"
+        },
+        {
+          "id": "app-def456",
+          "name": "ML Model Explorer",
+          "url": "https://johndoe-ml-explorer-main.streamlit.app",
+          "status": "sleeping",
+          "repo": "johndoe/ml-explorer",
+          "branch": "main",
+          "mainFile": "streamlit_app.py",
+          "owner": "johndoe",
+          "createdAt": "2026-03-01T14:00:00Z",
+          "updatedAt": "2026-04-10T09:30:00Z"
+        }
+      ],
+      "pagination": {
+        "page": 1,
+        "perPage": 25,
+        "total": 2
+      }
+    }
+  }
+}
