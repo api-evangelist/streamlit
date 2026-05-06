@@ -1,210 +1,346 @@
-naftiko: "1.0.0-alpha1"
-
+naftiko: 1.0.0-alpha2
 info:
-  label: "Streamlit App Deployment"
-  description: >-
-    Unified capability for deploying and managing Streamlit applications on
-    Community Cloud. Designed for data scientists and ML engineers who need
-    to programmatically deploy, configure, and manage Streamlit data apps
-    from GitHub repositories. Covers the full lifecycle from deployment through
-    secrets management and operational monitoring.
+  label: Streamlit App Deployment
+  description: Unified capability for deploying and managing Streamlit applications on Community Cloud. Designed for data
+    scientists and ML engineers who need to programmatically deploy, configure, and manage Streamlit data apps from GitHub
+    repositories. Covers the full lifecycle from deployment through secrets management and operational monitoring.
   tags:
-    - Cloud
-    - Data Science
-    - Deployment
-    - Machine Learning
-    - Open Source
-    - Python
-  created: "2026-05-02"
-  modified: "2026-05-02"
-
+  - Cloud
+  - Data Science
+  - Deployment
+  - Machine Learning
+  - Open Source
+  - Python
+  created: '2026-05-02'
+  modified: '2026-05-06'
 binds:
-  - namespace: env
-    keys:
-      STREAMLIT_API_TOKEN: STREAMLIT_API_TOKEN
-
+- namespace: env
+  keys:
+    STREAMLIT_API_TOKEN: STREAMLIT_API_TOKEN
 capability:
   consumes:
-    - import: streamlit-cloud
-      location: ./shared/cloud-api.yaml
-
+  - type: http
+    namespace: streamlit-cloud
+    baseUri: https://api.streamlit.io/v1
+    description: Streamlit Community Cloud API
+    authentication:
+      type: bearer
+      token: '{{STREAMLIT_API_TOKEN}}'
+    resources:
+    - name: apps
+      path: /apps
+      description: Streamlit app management
+      operations:
+      - name: list-apps
+        method: GET
+        description: List all Streamlit apps in the workspace
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: Page number
+        - name: per_page
+          in: query
+          type: integer
+          required: false
+          description: Apps per page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deploy-app
+        method: POST
+        description: Deploy a new app from a GitHub repository
+        inputParameters: []
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            repo: '{{tools.repo}}'
+            branch: '{{tools.branch}}'
+            mainFile: '{{tools.mainFile}}'
+            appName: '{{tools.appName}}'
+    - name: app
+      path: /apps/{appId}
+      description: Single app operations
+      operations:
+      - name: get-app
+        method: GET
+        description: Get details of a specific app
+        inputParameters:
+        - name: appId
+          in: path
+          type: string
+          required: true
+          description: The app identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: delete-app
+        method: DELETE
+        description: Delete a deployed app
+        inputParameters:
+        - name: appId
+          in: path
+          type: string
+          required: true
+          description: The app identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: app-restart
+      path: /apps/{appId}/restart
+      description: App restart operation
+      operations:
+      - name: restart-app
+        method: POST
+        description: Restart a deployed app
+        inputParameters:
+        - name: appId
+          in: path
+          type: string
+          required: true
+          description: The app identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: app-secrets
+      path: /apps/{appId}/secrets
+      description: App secrets management
+      operations:
+      - name: get-app-secrets
+        method: GET
+        description: Get secret key names for an app (values not returned)
+        inputParameters:
+        - name: appId
+          in: path
+          type: string
+          required: true
+          description: The app identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: update-app-secrets
+        method: PUT
+        description: Update secrets for an app (TOML format)
+        inputParameters:
+        - name: appId
+          in: path
+          type: string
+          required: true
+          description: The app identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            secrets: '{{tools.secrets}}'
+    - name: workspaces
+      path: /workspaces
+      description: Workspace management
+      operations:
+      - name: list-workspaces
+        method: GET
+        description: List accessible workspaces
+        inputParameters: []
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
   exposes:
-    - type: rest
-      port: 8080
-      namespace: streamlit-app-deployment-api
-      description: "Unified REST API for Streamlit app deployment and management."
-      resources:
-        - path: /v1/apps
-          name: apps
-          description: "App deployment and listing"
-          operations:
-            - method: GET
-              name: list-apps
-              description: "List all deployed Streamlit apps"
-              call: "streamlit-cloud.list-apps"
-              with:
-                page: "rest.page"
-                per_page: "rest.per_page"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: deploy-app
-              description: "Deploy a new app from GitHub"
-              call: "streamlit-cloud.deploy-app"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/apps/{appId}
-          name: app
-          description: "Single app management"
-          operations:
-            - method: GET
-              name: get-app
-              description: "Get app details and status"
-              call: "streamlit-cloud.get-app"
-              with:
-                appId: "rest.appId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: DELETE
-              name: delete-app
-              description: "Delete an app"
-              call: "streamlit-cloud.delete-app"
-              with:
-                appId: "rest.appId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/apps/{appId}/restart
-          name: app-restart
-          description: "App restart operation"
-          operations:
-            - method: POST
-              name: restart-app
-              description: "Restart a deployed app"
-              call: "streamlit-cloud.restart-app"
-              with:
-                appId: "rest.appId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/apps/{appId}/secrets
-          name: app-secrets
-          description: "App secrets management"
-          operations:
-            - method: GET
-              name: get-secrets
-              description: "Get app secret keys"
-              call: "streamlit-cloud.get-app-secrets"
-              with:
-                appId: "rest.appId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: PUT
-              name: update-secrets
-              description: "Update app secrets"
-              call: "streamlit-cloud.update-app-secrets"
-              with:
-                appId: "rest.appId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/workspaces
-          name: workspaces
-          description: "Workspace management"
-          operations:
-            - method: GET
-              name: list-workspaces
-              description: "List accessible workspaces"
-              call: "streamlit-cloud.list-workspaces"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-    - type: mcp
-      port: 9090
-      namespace: streamlit-app-deployment-mcp
-      transport: http
-      description: "MCP server for AI-assisted Streamlit app deployment and management."
-      tools:
-        - name: list-apps
-          description: "List all Streamlit apps deployed in the workspace"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "streamlit-cloud.list-apps"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: deploy-app
-          description: "Deploy a new Streamlit app from a GitHub repository"
-          hints:
-            readOnly: false
-          call: "streamlit-cloud.deploy-app"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-app-status
-          description: "Get current status and details of a Streamlit app"
-          hints:
-            readOnly: true
-          call: "streamlit-cloud.get-app"
-          with:
-            appId: "tools.appId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: restart-app
-          description: "Restart a Streamlit app — use after updating secrets"
-          hints:
-            readOnly: false
-          call: "streamlit-cloud.restart-app"
-          with:
-            appId: "tools.appId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-app-secrets
-          description: "List the secret keys configured for a Streamlit app (values not returned)"
-          hints:
-            readOnly: true
-          call: "streamlit-cloud.get-app-secrets"
-          with:
-            appId: "tools.appId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: update-app-secrets
-          description: "Update secrets for a Streamlit app in TOML format"
-          hints:
-            readOnly: false
-            idempotent: true
-          call: "streamlit-cloud.update-app-secrets"
-          with:
-            appId: "tools.appId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: delete-app
-          description: "Delete a deployed Streamlit app permanently"
-          hints:
-            readOnly: false
-            destructive: true
-            idempotent: true
-          call: "streamlit-cloud.delete-app"
-          with:
-            appId: "tools.appId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-workspaces
-          description: "List Streamlit Community Cloud workspaces"
-          hints:
-            readOnly: true
-          call: "streamlit-cloud.list-workspaces"
-          outputParameters:
-            - type: object
-              mapping: "$."
+  - type: rest
+    port: 8080
+    namespace: streamlit-app-deployment-api
+    description: Unified REST API for Streamlit app deployment and management.
+    resources:
+    - path: /v1/apps
+      name: apps
+      description: App deployment and listing
+      operations:
+      - method: GET
+        name: list-apps
+        description: List all deployed Streamlit apps
+        call: streamlit-cloud.list-apps
+        with:
+          page: rest.page
+          per_page: rest.per_page
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: deploy-app
+        description: Deploy a new app from GitHub
+        call: streamlit-cloud.deploy-app
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/apps/{appId}
+      name: app
+      description: Single app management
+      operations:
+      - method: GET
+        name: get-app
+        description: Get app details and status
+        call: streamlit-cloud.get-app
+        with:
+          appId: rest.appId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: delete-app
+        description: Delete an app
+        call: streamlit-cloud.delete-app
+        with:
+          appId: rest.appId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/apps/{appId}/restart
+      name: app-restart
+      description: App restart operation
+      operations:
+      - method: POST
+        name: restart-app
+        description: Restart a deployed app
+        call: streamlit-cloud.restart-app
+        with:
+          appId: rest.appId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/apps/{appId}/secrets
+      name: app-secrets
+      description: App secrets management
+      operations:
+      - method: GET
+        name: get-secrets
+        description: Get app secret keys
+        call: streamlit-cloud.get-app-secrets
+        with:
+          appId: rest.appId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: update-secrets
+        description: Update app secrets
+        call: streamlit-cloud.update-app-secrets
+        with:
+          appId: rest.appId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/workspaces
+      name: workspaces
+      description: Workspace management
+      operations:
+      - method: GET
+        name: list-workspaces
+        description: List accessible workspaces
+        call: streamlit-cloud.list-workspaces
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: streamlit-app-deployment-mcp
+    transport: http
+    description: MCP server for AI-assisted Streamlit app deployment and management.
+    tools:
+    - name: list-apps
+      description: List all Streamlit apps deployed in the workspace
+      hints:
+        readOnly: true
+        openWorld: true
+      call: streamlit-cloud.list-apps
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deploy-app
+      description: Deploy a new Streamlit app from a GitHub repository
+      hints:
+        readOnly: false
+      call: streamlit-cloud.deploy-app
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-app-status
+      description: Get current status and details of a Streamlit app
+      hints:
+        readOnly: true
+      call: streamlit-cloud.get-app
+      with:
+        appId: tools.appId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: restart-app
+      description: Restart a Streamlit app — use after updating secrets
+      hints:
+        readOnly: false
+      call: streamlit-cloud.restart-app
+      with:
+        appId: tools.appId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-app-secrets
+      description: List the secret keys configured for a Streamlit app (values not returned)
+      hints:
+        readOnly: true
+      call: streamlit-cloud.get-app-secrets
+      with:
+        appId: tools.appId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-app-secrets
+      description: Update secrets for a Streamlit app in TOML format
+      hints:
+        readOnly: false
+        idempotent: true
+      call: streamlit-cloud.update-app-secrets
+      with:
+        appId: tools.appId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-app
+      description: Delete a deployed Streamlit app permanently
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: streamlit-cloud.delete-app
+      with:
+        appId: tools.appId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-workspaces
+      description: List Streamlit Community Cloud workspaces
+      hints:
+        readOnly: true
+      call: streamlit-cloud.list-workspaces
+      outputParameters:
+      - type: object
+        mapping: $.
