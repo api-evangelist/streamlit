@@ -46,7 +46,7 @@ apis:
         url: https://docs.streamlit.io/develop/api-reference
       - type: GitHub
         url: https://github.com/streamlit/streamlit
-      - type: Changelog
+      - type: ChangeLog
         url: https://docs.streamlit.io/develop/quick-reference/changelog
   - aid: streamlit:streamlit-cloud-api
     name: Streamlit Community Cloud API
@@ -81,13 +81,13 @@ common:
     url: https://blog.streamlit.io
   - type: Gallery
     url: https://streamlit.io/gallery
-  - type: Changelog
+  - type: ChangeLog
     url: https://docs.streamlit.io/develop/quick-reference/changelog
-  - type: Terms of Service
+  - type: TermsOfService
     url: https://streamlit.io/terms-of-use
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://streamlit.io/privacy-policy
-  - type: Sign Up
+  - type: SignUp
     url: https://share.streamlit.io/signup
   - type: PyPI
     url: https://pypi.org/project/streamlit/
