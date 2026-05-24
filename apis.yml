@@ -94,6 +94,8 @@ common:
   url: https://raw.githubusercontent.com/api-evangelist/streamlit/refs/heads/main/json-schema/streamlit-app-schema.json
 - type: JSONLDContext
   url: https://raw.githubusercontent.com/api-evangelist/streamlit/refs/heads/main/json-ld/streamlit-context.jsonld
+- type: LLMsTxt
+  url: https://docs.streamlit.io/llms.txt
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
