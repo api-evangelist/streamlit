@@ -2,12 +2,20 @@
   "repo": "streamlit",
   "feeds": [
     {
-      "source": "https://blog.streamlit.io",
+      "source": "https://blog.streamlit.io/feed/",
       "feed_url": "https://blog.streamlit.io/feed/",
-      "title": "Streamlit - Medium",
-      "saved": 5
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://discuss.streamlit.io",
+      "feed_url": "https://discuss.streamlit.io/posts.rss",
+      "title": "",
+      "saved": 29,
+      "method": "discovered"
     }
   ],
-  "post_count": 15,
-  "fetched": "2026-05-17T20:20:35Z"
+  "post_count": 44,
+  "fetched": "2026-06-01T23:35:02Z"
 }
