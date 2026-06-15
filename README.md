@@ -1,95 +1,14 @@
-# Streamlit
+# Streamlit (streamlit)
 
-Streamlit is an open-source Python framework that makes it easy to build and share beautiful, custom web apps for machine learning and data science. Turn data scripts into shareable web applications in minutes without front-end experience. Streamlit Community Cloud provides free hosting directly from GitHub repositories.
+Streamlit is an open-source Python framework that makes it easy to build and share beautiful, custom web apps for machine learning and data science. With Streamlit, you can turn data scripts into shareable web applications in minutes without needing front-end experience. Streamlit Community Cloud provides free hosting for Streamlit apps directly from GitHub repositories. The framework offers a Python API for displaying data, creating interactive widgets, caching computation, and connecting to databases and APIs.
 
-**Human URL:** [https://streamlit.io](https://streamlit.io)  
-**API Reference:** [https://docs.streamlit.io/develop/api-reference](https://docs.streamlit.io/develop/api-reference)
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/streamlit/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/streamlit/refs/heads/main/apis.yml)
 
-## Links
+## Scope
 
-- [Documentation](https://docs.streamlit.io)
-- [GitHub](https://github.com/streamlit/streamlit)
-- [Community Forum](https://discuss.streamlit.io)
-- [Blog](https://blog.streamlit.io)
-- [App Gallery](https://streamlit.io/gallery)
-- [Changelog](https://docs.streamlit.io/develop/quick-reference/changelog)
-- [PyPI](https://pypi.org/project/streamlit/)
-- [Terms of Service](https://streamlit.io/terms-of-use)
-
-## APIs
-
-### Streamlit Python API
-
-The core Streamlit Python library providing functions for displaying data, input widgets, layout, media, charts, performance caching, and database connections.
-
-- [Documentation](https://docs.streamlit.io/develop/api-reference)
-- [GitHub](https://github.com/streamlit/streamlit)
-
-### Streamlit Community Cloud API
-
-Programmatic access for deploying and managing Streamlit apps on Community Cloud from GitHub repositories.
-
-- [OpenAPI Spec](openapi/streamlit-cloud-openapi.yml)
-- [Documentation](https://docs.streamlit.io/deploy/streamlit-community-cloud)
-
-## Artifacts
-
-### OpenAPI Specifications
-
-| File | Description |
-|---|---|
-| [streamlit-cloud-openapi.yml](openapi/streamlit-cloud-openapi.yml) | Community Cloud API — app deployment, secrets, workspaces |
-
-### JSON Schema
-
-| File | Description |
-|---|---|
-| [streamlit-app-schema.json](json-schema/streamlit-app-schema.json) | JSON Schema for Streamlit Community Cloud app objects |
-
-### JSON Structure
-
-| File | Description |
-|---|---|
-| [streamlit-app-structure.json](json-structure/streamlit-app-structure.json) | Field structure for Community Cloud app objects |
-
-### JSON-LD Context
-
-| File | Description |
-|---|---|
-| [streamlit-context.jsonld](json-ld/streamlit-context.jsonld) | JSON-LD context mapping Streamlit vocabulary to schema.org |
-
-### Examples
-
-| File | Description |
-|---|---|
-| [streamlit-list-apps-example.json](examples/streamlit-list-apps-example.json) | List deployed Streamlit apps |
-| [streamlit-deploy-app-example.json](examples/streamlit-deploy-app-example.json) | Deploy a new app from GitHub |
-
-### Spectral Rules
-
-| File | Description |
-|---|---|
-| [streamlit-rules.yml](rules/streamlit-rules.yml) | Spectral ruleset for Streamlit Cloud API conventions |
-
-### Naftiko Capabilities
-
-#### Shared Definitions
-
-| File | Description |
-|---|---|
-| [capabilities/shared/cloud-api.yaml](capabilities/shared/cloud-api.yaml) | Community Cloud API — apps, secrets, workspaces |
-
-#### Workflow Capabilities
-
-| File | Description |
-|---|---|
-| [capabilities/app-deployment.yaml](capabilities/app-deployment.yaml) | App deployment and management workflow (8 tools) |
-
-### Vocabulary
-
-| File | Description |
-|---|---|
-| [vocabulary/streamlit-vocabulary.yml](vocabulary/streamlit-vocabulary.yml) | Streamlit domain vocabulary and framework terminology |
+- **Type:** Index
+- **Position:** Consumer
+- **Access:** 3rd-Party
 
 ## Tags
 
@@ -99,7 +18,76 @@ Programmatic access for deploying and managing Streamlit apps on Community Cloud
 - Python
 - Web Applications
 
+## Timestamps
+
+- **Created:** 2025-02-12
+- **Modified:** 2026-05-19
+
+## APIs
+
+### Streamlit Python API
+
+The Streamlit Python library API provides a rich set of functions for building interactive data applications. Organized by activity type: display data (st.write, st.dataframe, st.table), input widgets (st.button, st.slider, st.selectbox), layout (st.columns, st.tabs, st.sidebar), media (st.image, st.video, st.audio), charts (st.line_chart, st.bar_chart, st.map), and performance (st.cache_data, st.cache_resource). Also includes connection management via st.connection.
+
+- **Human URL:** [https://docs.streamlit.io/develop/api-reference](https://docs.streamlit.io/develop/api-reference)
+
+#### Tags
+
+- Data Science
+- Machine Learning
+- Open Source
+- Python
+- Web Applications
+
+#### Properties
+
+- [Documentation](https://docs.streamlit.io/develop/api-reference)
+- [Git Hub](https://github.com/streamlit/streamlit)
+- [Changelog](https://docs.streamlit.io/develop/quick-reference/changelog)
+- [Postman Collection](collections/streamlit-cloud.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/streamlit-cloud.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### Streamlit Community Cloud API
+
+The Streamlit Community Cloud API provides programmatic access to manage deployed Streamlit applications. Supports deploying apps from GitHub repositories, managing app secrets, restarting apps, and workspace management. Authentication uses bearer tokens issued from account settings.
+
+- **Human URL:** [https://docs.streamlit.io/deploy/streamlit-community-cloud](https://docs.streamlit.io/deploy/streamlit-community-cloud)
+- **Base URL:** `https://api.streamlit.io/v1`
+
+#### Tags
+
+- Cloud
+- Deployment
+- DevOps
+- Open Source
+
+#### Properties
+
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/streamlit/refs/heads/main/openapi/streamlit-cloud-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Documentation](https://docs.streamlit.io/deploy/streamlit-community-cloud/manage-your-app)
+- [Postman Collection](collections/streamlit-cloud.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/streamlit-cloud.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+## Common Properties
+
+- [LinkedIn](https://www.linkedin.com/company/streamlit)
+- [Website](https://streamlit.io)
+- [Documentation](https://docs.streamlit.io)
+- [Git Hub](https://github.com/streamlit/streamlit)
+- [Forum](https://discuss.streamlit.io)
+- [Blog](https://blog.streamlit.io)
+- [Gallery](https://streamlit.io/gallery)
+- [Changelog](https://docs.streamlit.io/develop/quick-reference/changelog)
+- [Terms of Service](https://streamlit.io/terms-of-use)
+- [Privacy Policy](https://streamlit.io/privacy-policy)
+- [Sign Up](https://share.streamlit.io/signup)
+- [Py P I](https://pypi.org/project/streamlit/)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/streamlit/refs/heads/main/openapi/streamlit-cloud-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/streamlit/refs/heads/main/json-schema/streamlit-app-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [J S O N L D Context](https://raw.githubusercontent.com/api-evangelist/streamlit/refs/heads/main/json-ld/streamlit-context.jsonld)
+- [L L Ms Txt](https://docs.streamlit.io/llms.txt)
+
 ## Maintainers
 
-**FN:** Kin Lane  
+**FN:** Kin Lane
 **Email:** kin@apievangelist.com
