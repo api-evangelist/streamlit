@@ -9,13 +9,20 @@
       "method": "feed"
     },
     {
+      "source": "https://discuss.streamlit.io/posts.rss",
+      "feed_url": "https://discuss.streamlit.io/posts.rss",
+      "title": "",
+      "saved": 14,
+      "method": "feed"
+    },
+    {
       "source": "https://discuss.streamlit.io",
       "feed_url": "https://discuss.streamlit.io/posts.rss",
       "title": "",
-      "saved": 22,
+      "saved": 0,
       "method": "discovered"
     }
   ],
-  "post_count": 66,
-  "fetched": "2026-06-14T20:42:17Z"
+  "post_count": 96,
+  "fetched": "2026-06-27T12:03:07Z"
 }
