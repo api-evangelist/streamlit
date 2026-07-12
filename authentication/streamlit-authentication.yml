@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/streamlit-cloud-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: streamlitBearerAuth
+  type: http
+  scheme: bearer
+  description: 'Bearer token issued from the Streamlit Community Cloud account settings. Include
+    as Authorization: Bearer {token}.'
+  sources:
+  - openapi/streamlit-cloud-openapi.yml

@@ -62,6 +62,12 @@ apis:
       - type: Documentation
         url: https://docs.streamlit.io/deploy/streamlit-community-cloud/manage-your-app
 common:
+  - type: TrustCenter
+    url: security/streamlit-trust-center.yml
+  - type: DomainSecurity
+    url: security/streamlit-domain-security.yml
+  - type: Authentication
+    url: authentication/streamlit-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/streamlit
   - type: Website
