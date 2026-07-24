@@ -1,0 +1,87 @@
+openapi: 3.1.0
+info:
+  title: Streamlit Community Cloud Apps Workspaces API
+  description: The Streamlit Community Cloud API provides programmatic access to manage Streamlit applications hosted on Community Cloud. Developers can use this API to deploy apps from GitHub repositories, manage app secrets, view deployment logs, restart apps, and manage workspace settings. Authentication uses Streamlit-issued API tokens.
+  version: 1.0.0
+  contact:
+    name: Streamlit Support
+    url: https://discuss.streamlit.io
+  termsOfService: https://streamlit.io/terms-of-use
+servers:
+- url: https://api.streamlit.io/v1
+  description: Streamlit Community Cloud API
+security:
+- streamlitBearerAuth: []
+tags:
+- name: Workspaces
+  description: Manage Streamlit Community Cloud workspaces and their settings.
+paths:
+  /workspaces:
+    get:
+      operationId: listWorkspaces
+      summary: List Workspaces
+      description: Returns a list of Streamlit Community Cloud workspaces accessible to the authenticated user.
+      tags:
+      - Workspaces
+      responses:
+        '200':
+          description: A list of workspaces
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  workspaces:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Workspace'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    Workspace:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the workspace
+        name:
+          type: string
+          description: The display name of the workspace
+        owner:
+          type: string
+          description: The GitHub username or organization
+        plan:
+          type: string
+          enum:
+          - free
+          - team
+          - enterprise
+          description: The workspace's subscription plan
+        appCount:
+          type: integer
+          description: The number of apps in the workspace
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: The error code
+        message:
+          type: string
+          description: A human-readable error message
+  responses:
+    Unauthorized:
+      description: Unauthorized — invalid or missing API token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    streamlitBearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Bearer token issued from the Streamlit Community Cloud account settings. Include as Authorization: Bearer {token}.'
+externalDocs:
+  description: Streamlit Community Cloud Documentation
+  url: https://docs.streamlit.io/deploy/streamlit-community-cloud
