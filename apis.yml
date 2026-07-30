@@ -7,6 +7,19 @@ description: >-
   directly from GitHub repositories. The framework offers a Python API for displaying data, creating interactive
   widgets, caching computation, and connecting to databases and APIs.
 url: https://raw.githubusercontent.com/api-evangelist/streamlit/refs/heads/main/apis.yml
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 image: https://streamlit.io/images/brand/streamlit-mark-color.png
 tags:
   - Data Science
@@ -21,46 +34,68 @@ created: '2025-02-12'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: streamlit:streamlit-python-api
-    name: Streamlit Python API
-    description: >-
-      The Streamlit Python library API provides a rich set of functions for building interactive data applications.
-      Organized by activity type: display data (st.write, st.dataframe, st.table), input widgets (st.button, st.slider,
-      st.selectbox), layout (st.columns, st.tabs, st.sidebar), media (st.image, st.video, st.audio), charts
-      (st.line_chart, st.bar_chart, st.map), and performance (st.cache_data, st.cache_resource). Also includes
-      connection management via st.connection.
-    humanURL: https://docs.streamlit.io/develop/api-reference
-    tags:
-      - Data Science
-      - Machine Learning
-      - Open Source
-      - Python
-      - Web Applications
-    properties:
-      - type: Documentation
-        url: https://docs.streamlit.io/develop/api-reference
-      - type: GitHub
-        url: https://github.com/streamlit/streamlit
-      - type: ChangeLog
-        url: https://docs.streamlit.io/develop/quick-reference/changelog
-  - aid: streamlit:streamlit-cloud-api
-    name: Streamlit Community Cloud API
-    description: >-
-      The Streamlit Community Cloud API provides programmatic access to manage deployed Streamlit applications. Supports
-      deploying apps from GitHub repositories, managing app secrets, restarting apps, and workspace management.
-      Authentication uses bearer tokens issued from account settings.
-    humanURL: https://docs.streamlit.io/deploy/streamlit-community-cloud
-    baseURL: https://api.streamlit.io/v1
-    tags:
-      - Cloud
-      - Deployment
-      - DevOps
-      - Open Source
-    properties:
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/streamlit/refs/heads/main/openapi/streamlit-cloud-openapi.yml
-      - type: Documentation
-        url: https://docs.streamlit.io/deploy/streamlit-community-cloud/manage-your-app
+- aid: streamlit:streamlit-python-api
+  name: Streamlit Python API
+  description: >-
+    The Streamlit Python library API provides a rich set of functions for building interactive data applications.
+    Organized by activity type: display data (st.write, st.dataframe, st.table), input widgets (st.button,
+    st.slider, st.selectbox), layout (st.columns, st.tabs, st.sidebar), media (st.image, st.video, st.audio),
+    charts (st.line_chart, st.bar_chart, st.map), and performance (st.cache_data, st.cache_resource).
+    Also includes connection management via st.connection.
+  humanURL: https://docs.streamlit.io/develop/api-reference
+  tags:
+  - Data Science
+  - Machine Learning
+  - Open Source
+  - Python
+  - Web Applications
+  properties:
+  - type: Documentation
+    url: https://docs.streamlit.io/develop/api-reference
+  - type: GitHub
+    url: https://github.com/streamlit/streamlit
+  - type: ChangeLog
+    url: https://docs.streamlit.io/develop/quick-reference/changelog
+- aid: streamlit:streamlit-apps-api
+  name: Streamlit Apps API
+  description: >-
+    Manage Streamlit applications deployed on Community Cloud. Deploy, list, restart, and delete apps
+    connected to GitHub repositories.
+  humanURL: https://docs.streamlit.io/develop/api-reference
+  baseURL: https://api.streamlit.io/v1
+  tags:
+  - Apps
+  properties:
+  - type: OpenAPI
+    url: openapi/streamlit-apps-api-openapi.yml
+  - type: Documentation
+    url: https://docs.streamlit.io/deploy/streamlit-community-cloud/manage-your-app
+- aid: streamlit:streamlit-secrets-api
+  name: Streamlit Secrets API
+  description: >-
+    Manage secrets for Streamlit applications. Secrets are environment variables securely injected into
+    the application at runtime via st.secrets.
+  humanURL: https://docs.streamlit.io/develop/api-reference
+  baseURL: https://api.streamlit.io/v1
+  tags:
+  - Secrets
+  properties:
+  - type: OpenAPI
+    url: openapi/streamlit-secrets-api-openapi.yml
+  - type: Documentation
+    url: https://docs.streamlit.io/deploy/streamlit-community-cloud/manage-your-app
+- aid: streamlit:streamlit-workspaces-api
+  name: Streamlit Workspaces API
+  description: Manage Streamlit Community Cloud workspaces and their settings.
+  humanURL: https://docs.streamlit.io/develop/api-reference
+  baseURL: https://api.streamlit.io/v1
+  tags:
+  - Workspaces
+  properties:
+  - type: OpenAPI
+    url: openapi/streamlit-workspaces-api-openapi.yml
+  - type: Documentation
+    url: https://docs.streamlit.io/deploy/streamlit-community-cloud/manage-your-app
 common:
   - type: AgenticAccess
     url: agentic-access/streamlit-agentic-access.yml
