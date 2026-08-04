@@ -1,0 +1,18 @@
+{
+  "provider": "streamlit",
+  "sources": [
+    "streamlit-apps-api-openapi.yml",
+    "streamlit-secrets-api-openapi.yml",
+    "streamlit-workspaces-api-openapi.yml"
+  ],
+  "outputs": [
+    "streamlit-apps-api-openapi.yml",
+    "streamlit-secrets-api-openapi.yml",
+    "streamlit-workspaces-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
