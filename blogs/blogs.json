@@ -12,7 +12,7 @@
       "source": "https://discuss.streamlit.io/posts.rss",
       "feed_url": "https://discuss.streamlit.io/posts.rss",
       "title": "",
-      "saved": 0,
+      "saved": 17,
       "method": "feed"
     },
     {
@@ -23,6 +23,6 @@
       "method": "discovered"
     }
   ],
-  "post_count": 194,
-  "fetched": "2026-08-06T14:08:46Z"
+  "post_count": 211,
+  "fetched": "2026-08-15T12:11:08Z"
 }
