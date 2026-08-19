@@ -1,0 +1,121 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Streamlit Community Cloud Apps API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Apps",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Apps",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.streamlit.io/v1/apps",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of apps per page"
+              }
+            ]
+          },
+          "docs": "Returns a list of all Streamlit applications deployed in the authenticated workspace."
+        },
+        {
+          "info": {
+            "name": "Deploy App",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.streamlit.io/v1/apps",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deploys a new Streamlit application from a GitHub repository. The repository must be accessible to the authenticated workspace. The app will be built and deployed from the specified branch and file path."
+        },
+        {
+          "info": {
+            "name": "Get App",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.streamlit.io/v1/apps/:appId",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Streamlit app"
+              }
+            ]
+          },
+          "docs": "Returns the details of a specific Streamlit application including its deployment status, GitHub connection, and URL."
+        },
+        {
+          "info": {
+            "name": "Delete App",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.streamlit.io/v1/apps/:appId",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Streamlit app"
+              }
+            ]
+          },
+          "docs": "Deletes a Streamlit application from Community Cloud. This action is irreversible and removes the deployment but does not affect the GitHub repository."
+        },
+        {
+          "info": {
+            "name": "Restart App",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.streamlit.io/v1/apps/:appId/restart",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Streamlit app"
+              }
+            ]
+          },
+          "docs": "Restarts a deployed Streamlit application. Useful for applying new secrets or recovering from an error state."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

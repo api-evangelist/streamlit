@@ -1,0 +1,162 @@
+{
+  "item": [
+    {
+      "id": "ff0db892-fd97-467f-b403-81224539f77c",
+      "name": "Workspaces",
+      "description": {
+        "content": "Manage Streamlit Community Cloud workspaces and their settings.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3fc44e23-648d-47bd-b1cf-f9e63d35f291",
+          "name": "List Workspaces",
+          "request": {
+            "name": "List Workspaces",
+            "description": {
+              "content": "Returns a list of Streamlit Community Cloud workspaces accessible to the authenticated user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "workspaces"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8e33ae08-1e5c-4f43-9688-afc28edbf5f4",
+              "name": "A list of workspaces",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"workspaces\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"owner\": \"string\",\n      \"plan\": \"free\",\n      \"appCount\": 6521\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"owner\": \"string\",\n      \"plan\": \"free\",\n      \"appCount\": 4538\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59908b48-a863-437b-b87d-a0e8c91c43f6",
+              "name": "Unauthorized — invalid or missing API token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workspaces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.streamlit.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "338457a9-b075-4f63-987e-ecdea1e783d9",
+    "name": "Streamlit Community Cloud Apps Workspaces API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Streamlit Community Cloud API provides programmatic access to manage Streamlit applications hosted on Community Cloud. Developers can use this API to deploy apps from GitHub repositories, manage app secrets, view deployment logs, restart apps, and manage workspace settings. Authentication uses Streamlit-issued API tokens.\n\nContact Support:\n Name: Streamlit Support",
+      "type": "text/plain"
+    }
+  }
+}
