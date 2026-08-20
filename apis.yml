@@ -23,6 +23,12 @@ accessModel:
 image: https://streamlit.io/images/brand/streamlit-mark-color.png
 tags:
   - Data Science
+  - Machine-Learning
+  - Open-Source
+  - Python
+  - Web Applications
+tags_raw:
+  - Data Science
   - Machine Learning
   - Open Source
   - Python
@@ -45,6 +51,12 @@ apis:
   humanURL: https://docs.streamlit.io/develop/api-reference
   tags:
   - Data Science
+  - Machine-Learning
+  - Open-Source
+  - Python
+  - Web Applications
+  tags_raw:
+  - Data Science
   - Machine Learning
   - Open Source
   - Python
@@ -64,6 +76,8 @@ apis:
   humanURL: https://docs.streamlit.io/develop/api-reference
   baseURL: https://api.streamlit.io/v1
   tags:
+  - Application
+  tags_raw:
   - Apps
   properties:
   - type: OpenAPI
