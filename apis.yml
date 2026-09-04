@@ -26,11 +26,12 @@ accessModel:
   try_now: true
   public: false
   label: Freemium · Self-serve signup
-  confidence: high
+  confidence: medium
   source:
   - plans
   - authentication
-  generated: '2026-07-22'
+  - security
+  generated: '2026-09-03'
   method: derived
 image: https://streamlit.io/images/brand/streamlit-mark-color.png
 tags:
@@ -47,7 +48,7 @@ tags_raw:
   - Web Applications
 type: Index
 access: 3rd-Party
-position: Consumer
+position: Consuming
 created: '2025-02-12'
 modified: '2026-05-19'
 specificationVersion: '0.23'
