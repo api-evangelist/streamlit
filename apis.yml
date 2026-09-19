@@ -117,6 +117,8 @@ apis:
   humanURL: https://docs.streamlit.io/develop/api-reference
   baseURL: https://api.streamlit.io/v1
   tags:
+  - Workspace
+  tags_raw:
   - Workspaces
   properties:
   - type: OpenAPI
