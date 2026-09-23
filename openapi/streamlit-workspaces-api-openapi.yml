@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Streamlit Community Cloud Apps Workspaces API
+  title: Streamlit Community Cloud Workspaces API
   description: The Streamlit Community Cloud API provides programmatic access to manage Streamlit applications hosted on Community Cloud. Developers can use this API to deploy apps from GitHub repositories, manage app secrets, view deployment logs, restart apps, and manage workspace settings. Authentication uses Streamlit-issued API tokens.
   version: 1.0.0
   contact:
@@ -38,6 +38,13 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Unauthorized — invalid or missing API token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     Workspace:
       type: object
@@ -70,13 +77,6 @@ components:
         message:
           type: string
           description: A human-readable error message
-  responses:
-    Unauthorized:
-      description: Unauthorized — invalid or missing API token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     streamlitBearerAuth:
       type: http

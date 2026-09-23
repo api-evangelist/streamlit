@@ -1,0 +1,27 @@
+# Front Door AI Index — streamlit — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: streamlit
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: streamlit.io
+  final_host: streamlit.io
+  ownership: own
+  owner: streamlit
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 18
+  host_score: 18
+  density: 7.76
+  words: 2319
+  tiers:
+    agentic: 0
+    core: 18
+    model: 0
+  ambiguous: 0
+  top_terms:
+    ML: 12
+    machine learning: 4
+    AI: 2
