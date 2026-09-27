@@ -8,16 +8,22 @@ description: >-
   widgets, caching computation, and connecting to databases and APIs.
 url: https://raw.githubusercontent.com/api-evangelist/streamlit/refs/heads/main/apis.yml
 deliveryModel:
-  model: saas
-  open_source: false
+  model: open-core
+  license: Apache-2.0
+  license_evidence:
+    repo: streamlit/streamlit
+    spdx: Apache-2.0
+    stars: 45834
+  open_source: true
   commercial: true
   callable_host: false
-  label: Hosted service · you call their endpoint
+  label: Open core · an OSS project plus a commercial hosted product
   confidence: medium
   source:
   - openapi
   - pricing
-  generated: '2026-08-28'
+  - repository-license
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: freemium
@@ -36,8 +42,8 @@ accessModel:
 image: https://streamlit.io/images/brand/streamlit-mark-color.png
 tags:
   - Data Science
-  - Machine-Learning
-  - Open-Source
+  - Machine Learning
+  - Open Source
   - Python
   - Web Applications
 tags_raw:
@@ -46,6 +52,8 @@ tags_raw:
   - Open Source
   - Python
   - Web Applications
+  - Machine-Learning
+  - Open-Source
 type: Index
 access: 3rd-Party
 position: Consuming
@@ -64,8 +72,8 @@ apis:
   humanURL: https://docs.streamlit.io/develop/api-reference
   tags:
   - Data Science
-  - Machine-Learning
-  - Open-Source
+  - Machine Learning
+  - Open Source
   - Python
   - Web Applications
   tags_raw:
@@ -74,6 +82,8 @@ apis:
   - Open Source
   - Python
   - Web Applications
+  - Machine-Learning
+  - Open-Source
   properties:
   - type: Documentation
     url: https://docs.streamlit.io/develop/api-reference
