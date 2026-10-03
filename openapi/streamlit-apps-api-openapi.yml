@@ -132,14 +132,14 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
-    Unauthorized:
-      description: Unauthorized — invalid or missing API token
+    BadRequest:
+      description: Bad request — invalid input
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request — invalid input
+    Unauthorized:
+      description: Unauthorized — invalid or missing API token
       content:
         application/json:
           schema:
@@ -168,25 +168,6 @@ components:
           type: integer
         total:
           type: integer
-    AppDeployRequest:
-      type: object
-      required:
-      - repo
-      - branch
-      - mainFile
-      properties:
-        repo:
-          type: string
-          description: The GitHub repository to deploy from (org/repo format)
-        branch:
-          type: string
-          description: The branch to deploy from
-        mainFile:
-          type: string
-          description: The path to the main Python file (e.g., app.py)
-        appName:
-          type: string
-          description: Optional custom name for the app
     Error:
       type: object
       properties:
@@ -238,6 +219,25 @@ components:
         owner:
           type: string
           description: The GitHub username or org that owns the repository
+    AppDeployRequest:
+      type: object
+      required:
+      - repo
+      - branch
+      - mainFile
+      properties:
+        repo:
+          type: string
+          description: The GitHub repository to deploy from (org/repo format)
+        branch:
+          type: string
+          description: The branch to deploy from
+        mainFile:
+          type: string
+          description: The path to the main Python file (e.g., app.py)
+        appName:
+          type: string
+          description: Optional custom name for the app
   securitySchemes:
     streamlitBearerAuth:
       type: http
