@@ -136,6 +136,9 @@ apis:
   - type: Documentation
     url: https://docs.streamlit.io/deploy/streamlit-community-cloud/manage-your-app
 common:
+  - type: CapabilityMap
+    url: capabilities/streamlit-capability-edges.yml
+    name: Streamlit Business Capability Map
   - type: AgenticAccess
     url: agentic-access/streamlit-agentic-access.yml
   - type: TrustCenter
