@@ -46,15 +46,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: The error code
-        message:
-          type: string
-          description: A human-readable error message
     Workspace:
       type: object
       properties:
@@ -77,6 +68,15 @@ components:
         appCount:
           type: integer
           description: The number of apps in the workspace
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: The error code
+        message:
+          type: string
+          description: A human-readable error message
   securitySchemes:
     streamlitBearerAuth:
       type: http

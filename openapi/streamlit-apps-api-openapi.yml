@@ -159,15 +159,6 @@ components:
       schema:
         type: string
   schemas:
-    Pagination:
-      type: object
-      properties:
-        page:
-          type: integer
-        perPage:
-          type: integer
-        total:
-          type: integer
     Error:
       type: object
       properties:
@@ -177,6 +168,15 @@ components:
         message:
           type: string
           description: A human-readable error message
+    Pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+        perPage:
+          type: integer
+        total:
+          type: integer
     App:
       type: object
       properties:
