@@ -136,6 +136,12 @@ apis:
   - type: Documentation
     url: https://docs.streamlit.io/deploy/streamlit-community-cloud/manage-your-app
 common:
+  - type: Plans
+    url: plans/streamlit-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/streamlit-rate-limits.yml
+  - type: FinOps
+    url: finops/streamlit-finops.yml
   - type: CapabilityMap
     url: capabilities/streamlit-capability-edges.yml
     name: Streamlit Business Capability Map
